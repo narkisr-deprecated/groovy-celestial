@@ -1,0 +1,16 @@
+apply plugin: 'groovy'
+
+version = '0.0.1'
+description = 'Celestial Groovy client'
+
+dependencies {
+  groovy 'org.codehaus.groovy:groovy-all:2.2.1'
+  compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.0-RC2'
+}
+
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '1.7'
+}
+
+
