@@ -11,6 +11,7 @@ class Celestial {
     Celestial.getInstance().with {
     	httpClient.sslTrustAllCerts = true
     	authorization = new HTTPBasicAuthorization("admin", "changeme")
+    	defaultAcceptHeader = 'application/json'
     }
   }
 }
