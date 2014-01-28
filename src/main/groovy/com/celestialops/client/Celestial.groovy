@@ -1,6 +1,5 @@
-package Celestial.groovy
+package com.celestialops.client
 
 class Celestial {
-  
 
 }
