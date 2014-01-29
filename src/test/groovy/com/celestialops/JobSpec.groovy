@@ -15,8 +15,8 @@ class JobsSpec extends Specification {
       def jid = job.stage(id).json.job
     then: 
       job.jobs().json.jobs.find{ it.jid == jid } != null
-    // cleanup: 
-      // system.delete(id)
-
+      job.waitUntil(jid, Jobs.State.Erroneous, 60 * 1000) == true
+    cleanup: 
+      system.delete(id)
   }
 }
