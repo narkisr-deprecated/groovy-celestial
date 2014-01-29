@@ -16,6 +16,10 @@ class Systems {
    }
  }
 
+ def delete(id) {
+  Celestial.getInstance().delete(path:"systems/${id}")
+ }
+
  def get(id) {
    Celestial.getInstance().get(path:"systems/${id}") 
  }

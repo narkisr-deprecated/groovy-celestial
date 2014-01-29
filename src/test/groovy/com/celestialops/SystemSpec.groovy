@@ -25,7 +25,19 @@ class SystemSpec  extends Specification {
   }
 
   def 'System creation'(){
-    when: def id = system.create(dockerSystem()).json.id 
-    then: system.get(id).json.owner == 'admin'
+    when: 
+      def id = system.create(dockerSystem()).json.id 
+    then:
+      system.get(id).json.owner == 'admin'
+    cleanup: 
+      system.delete(id)
+  }
+
+  def 'System deletion'(){
+    when: 
+      def id = system.create(dockerSystem()).json.id 
+      system.delete(id)
+    then:
+      system.get(id).json == [:]
   }
 }
