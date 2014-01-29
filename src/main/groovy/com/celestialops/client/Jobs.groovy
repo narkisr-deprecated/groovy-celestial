@@ -2,7 +2,8 @@ package com.celestialops.client
 
 class Jobs {
 
- def containsJid = { jobs,jid,exp -> jobs."${exp.result}".any{it.jid == jid} }
+ def containsTid = { jobs,tid,exp -> 
+     jobs."${exp.result}".any{it.tid == tid} }
 
  enum State {
   Succesful('succesful'),
@@ -17,20 +18,23 @@ class Jobs {
    Celestial.getInstance().post(path:"jobs/stage/${id}"){}
  }
 
- def jobs() {
+ def listJobs() {
    Celestial.getInstance().get(path:'jobs')
  }
 
+ def status(jid, queue) {
+   Celestial.getInstance().get(path:"jobs/${queue}/${jid}/status")
+ }
  
- def waitUntil(jid, expected, timeout) {
+ def waitUntil(tid, expected, timeout) {
     int count = (timeout/1000)
     while (count > 0) { 
-       if(containsJid(jobs().json, jid, expected)){
+       if(containsTid(jobs().json, tid, expected)){
         return true
        }
        sleep(1000) 
        count -- 
     } 
-   throw new RuntimeException("Failed to wait for job with id ${jid} to finish ${expected.result}")
+   throw new RuntimeException("Failed to wait for job with transaction id ${tid} to finish ${expected.result}")
  }
 }
