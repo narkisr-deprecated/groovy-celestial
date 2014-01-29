@@ -2,8 +2,7 @@ package com.celestialops.client
 
 class Jobs {
 
- def containsTid = { jobs,tid,exp -> 
-     jobs."${exp.result}".any{it.tid == tid} }
+ def containsTid = { jobs,tid,exp -> jobs."${exp.result}".any{it.tid == tid} }
 
  enum State {
   Succesful('succesful'),
@@ -29,7 +28,7 @@ class Jobs {
  def waitUntil(tid, expected, timeout) {
     int count = (timeout/1000)
     while (count > 0) { 
-       if(containsTid(jobs().json, tid, expected)){
+       if(containsTid(listJobs().json, tid, expected)){
         return true
        }
        sleep(1000) 
