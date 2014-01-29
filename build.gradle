@@ -25,3 +25,6 @@ task wrapper(type: Wrapper) {
 }
 
 
+test {
+ testLogging.showStandardStreams = true
+}
