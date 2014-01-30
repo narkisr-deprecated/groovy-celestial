@@ -8,7 +8,7 @@ class Systems {
 
  def create(system) {
    try{
-     Celestial.getInstance().post(path:'systems'){
+     post(path:'systems'){
       type ContentType.JSON 
       json system
      }
