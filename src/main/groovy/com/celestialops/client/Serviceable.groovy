@@ -5,10 +5,11 @@ import wslite.http.auth.*
 
 class Serviceable {
 
-  @Delegate RESTClient client = new RESTClient('https://localhost:8443/')
+  @Delegate RESTClient client = new RESTClient()
 
   def Serviceable(){
    client.with {
+     url = 'https://cassini:8443/'
      httpClient.sslTrustAllCerts = true
      authorization = new HTTPBasicAuthorization("admin", "changeme")
      defaultAcceptHeader = 'application/json'
