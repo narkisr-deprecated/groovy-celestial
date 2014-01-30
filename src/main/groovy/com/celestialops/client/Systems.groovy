@@ -3,6 +3,7 @@ package com.celestialops.client;
 import wslite.http.HTTPClientException
 import wslite.rest.ContentType
 
+@Mixin(Serviceable) 
 class Systems {
 
  def create(system) {
@@ -17,11 +18,11 @@ class Systems {
  }
 
  def delete(id) {
-  Celestial.getInstance().delete(path:"systems/${id}")
+  delete(path:"systems/${id}")
  }
 
  def get(id) {
-   Celestial.getInstance().get(path:"systems/${id}") 
+   get(path:"systems/${id}") 
  }
 
 }
