@@ -8,11 +8,17 @@ class Serviceable {
   @Delegate RESTClient client = new RESTClient()
 
   def Serviceable(){
+   def config = readConfig().celestial
    client.with {
-     url = 'https://localhost:8443/'
+     url = config.url
      httpClient.sslTrustAllCerts = true
-     authorization = new HTTPBasicAuthorization("admin", "changeme")
+     authorization = new HTTPBasicAuthorization(config.user, config.password)
      defaultAcceptHeader = 'application/json'
    }
   }
+
+ def readConfig() {
+  def url = this.class.getClassLoader().getResource("com/celestialops/client/Config.groovy");
+  new ConfigSlurper().parse(url);
+ }
 }
