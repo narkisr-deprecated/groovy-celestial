@@ -1,5 +1,7 @@
 package com.celestialops
 
+import groovy.json.JsonSlurper
+
 class Fixtures {
   def dockerSystem = 
     [description: '', type: 'redis', owner: 'admin', env: 'dev',
@@ -11,5 +13,7 @@ class Fixtures {
       'port-bindings': [ '22/tcp:2221/0.0.0.0' ]
      ]
    ]
+
+   def redisType = new JsonSlurper().parse(new File('src/test/resources/redis.json'))
 
 }

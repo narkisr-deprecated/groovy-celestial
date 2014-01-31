@@ -9,7 +9,7 @@ class Serviceable {
 
   def Serviceable(){
    client.with {
-     url = 'https://cassini:8443/'
+     url = 'https://localhost:8443/'
      httpClient.sslTrustAllCerts = true
      authorization = new HTTPBasicAuthorization("admin", "changeme")
      defaultAcceptHeader = 'application/json'
