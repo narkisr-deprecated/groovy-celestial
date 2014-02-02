@@ -1,5 +1,7 @@
 package com.celestialops.client
 
+import wslite.rest.ContentType
+
 @Mixin(Serviceable) 
 class Jobs {
 
