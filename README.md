@@ -4,7 +4,38 @@ A Groovy based Celestial client
 
 # Usage
 
-TBD
+First configure client by adding:
+
+```groovy
+// resources/com/celestialops/client/Config.groovy
+celestial {
+  user = 'admin'
+  password = 'changeme'
+  url = 'https://localhost:8443/'
+}
+```
+
+Using flows is covers high level operations:
+
+```groovy
+ import com.celestialops.client.*
+
+ def flows = new Flows()
+ // system json and staging max wait time
+ def id = flows.stageFlow(json, 5000)
+ // destroying a system
+ flows.destroyFlow(id, 5000)
+```
+
+Low level API:
+
+```groovy
+ // basicly what flows use
+ def id = system.create(json).id 
+ def jid = job.stage(id).job
+ def running = job.listJobs().jobs.find{ it.jid == jid } 
+ assert job.waitUntil(running.tid, Jobs.State.Succesful, timeout) == true
+```
 
 # Copyright and license
 
