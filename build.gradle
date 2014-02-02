@@ -1,15 +1,27 @@
 apply plugin: 'groovy'
+apply plugin: 'bintray'
+apply plugin: 'maven'
 
 version = '0.0.1'
 description = 'Celestial Groovy client'
+group = 'com.celestialops'
 
 repositories {
   mavenCentral()
   maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
+buildscript {
+  repositories {
+    maven { url 'http://jcenter.bintray.com' }
+  }
+  dependencies {
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
+  }
+}
+
 dependencies {
-  groovy 'org.codehaus.groovy:groovy-all:2.2.1'
+  compile 'org.codehaus.groovy:groovy-all:2.2.1'
   compile 'com.github.groovy-wslite:groovy-wslite:0.8.0'
   testCompile "org.spockframework:spock-core:1.0-groovy-2.0-SNAPSHOT"
 
@@ -21,10 +33,26 @@ dependencies {
 
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.7'
+  gradleVersion = '1.10'
 }
 
 
 test {
  testLogging.showStandardStreams = true
+}
+
+
+println artifacts
+bintray {
+  def config = new ConfigSlurper().parse(new File('auth.groovy').toURL())
+  user = config.auth.user
+  key = config.auth.pass
+  pkg {
+    configurations = ['artifacts']
+    repo = 'narkisr-jars'
+    name = 'groovy-celestial'
+    desc = 'Celestial groovy client'
+    licenses = ['Apache-2.0']
+    labels = ['celestial', 'groovy', 'cilent']
+  }
 }
