@@ -4,7 +4,20 @@ A Groovy based Celestial client
 
 # Usage
 
-First configure client by adding:
+Using with gradle add:
+
+```groovy
+repositories {
+  maven { url 'http://jcenter.bintray.com' }
+}
+
+
+dependencies {
+  compile 'com.celestialops:groovy-celestial:0.0.2'
+}
+```
+
+Configure client by adding:
 
 ```groovy
 // resources/com/celestialops/client/Config.groovy
