@@ -15,6 +15,13 @@ class Flows {
     id
   }
 
+  def actionFlow(action, id, args, timeout) {
+    def jid = job.launch(action, id, args).job
+    def running = job.listJobs().jobs.find{ it.jid == jid } 
+    assert job.waitUntil(running.tid, Jobs.State.Succesful, timeout) == true
+    id
+  }
+
   def destroyFlow(id, timeout) {
     def jid = job.destroy(id).job
     def running = job.listJobs().jobs.find{ it.jid == jid } 

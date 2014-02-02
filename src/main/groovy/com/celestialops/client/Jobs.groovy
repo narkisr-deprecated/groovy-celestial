@@ -22,6 +22,13 @@ class Jobs {
    post(path:"jobs/destroy/${id}",{}).json
  }
 
+ def launch(action, id, args) {
+    post(path:"jobs/${action}/${id}",{
+      type ContentType.JSON 
+      json args	
+    }).json
+ }
+
  def listJobs() {
    get(path:'jobs').json
  }
