@@ -4,7 +4,7 @@ import spock.lang.Specification
 import com.celestialops.client.*
 
 
-class SystemSpec  extends Specification {
+class SystemSpec extends Specification {
 
   def system = new Systems()
   def type = new Types()
