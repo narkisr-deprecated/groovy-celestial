@@ -42,13 +42,21 @@ test {
 }
 
 
-println artifacts
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 bintray {
   def config = new ConfigSlurper().parse(new File('auth.groovy').toURL())
   user = config.auth.user
   key = config.auth.pass
   pkg {
-    configurations = ['artifacts']
+    configurations = ['archives']
     repo = 'narkisr-jars'
     name = 'groovy-celestial'
     desc = 'Celestial groovy client'
