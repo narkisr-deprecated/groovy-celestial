@@ -18,6 +18,10 @@ class Jobs {
    post(path:"jobs/stage/${id}",{}).json
  }
 
+ def destroy(id) {
+   post(path:"jobs/destroy/${id}",{}).json
+ }
+
  def listJobs() {
    get(path:'jobs').json
  }
