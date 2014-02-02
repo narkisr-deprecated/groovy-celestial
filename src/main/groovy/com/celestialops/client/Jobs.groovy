@@ -15,21 +15,21 @@ class Jobs {
  }
  
  def stage(id) {
-   post(path:"jobs/stage/${id}"){}
+   post(path:"jobs/stage/${id}",{}).json
  }
 
  def listJobs() {
-   get(path:'jobs')
+   get(path:'jobs').json
  }
 
  def status(jid, queue) {
-   get(path:"jobs/${queue}/${jid}/status")
+   get(path:"jobs/${queue}/${jid}/status").json
  }
  
  def waitUntil(tid, expected, timeout) {
     int count = (timeout/1000)
     while (count > 0) { 
-       if(containsTid(listJobs().json, tid, expected)){
+       if(containsTid(listJobs(), tid, expected)){
         return true
        }
        sleep(1000) 

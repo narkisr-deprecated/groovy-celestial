@@ -13,9 +13,9 @@ class JobsSpec extends Specification {
   def 'Staging job'(){
     when: 
       type.create(new Fixtures().redisType)
-      def id = system.create(new Fixtures().dockerSystem).json.id 
-      def jid = job.stage(id).json.job
-      def running = job.listJobs().json.jobs.find{ it.jid == jid } 
+      def id = system.create(new Fixtures().dockerSystem).id 
+      def jid = job.stage(id).job
+      def running = job.listJobs().jobs.find{ it.jid == jid } 
     then: 
       running != null
       job.waitUntil(running.tid, Jobs.State.Erroneous, 60 * 1000) == true

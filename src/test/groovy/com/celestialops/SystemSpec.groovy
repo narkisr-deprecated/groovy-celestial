@@ -12,19 +12,19 @@ class SystemSpec extends Specification {
   def 'System creation'(){
     when: 
       type.create(new Fixtures().redisType)
-      def id = system.create(new Fixtures().dockerSystem).json.id 
+      def id = system.create(new Fixtures().dockerSystem).id 
     then:
-      system.get(id).json.owner == 'admin'
+      system.get(id).owner == 'admin'
     cleanup: 
       system.delete(id)
   }
 
   def 'System deletion'(){
     when: 
-      def id = system.create(new Fixtures().dockerSystem).json.id 
+      def id = system.create(new Fixtures().dockerSystem).id 
       system.delete(id)
     then:
-      system.get(id).json == [:]
+      system.get(id) == [:]
       type.delete('redis')
   }
 }

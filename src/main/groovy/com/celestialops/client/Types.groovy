@@ -8,10 +8,11 @@ class Types {
 
  def create(t) {
    try{
-     post(path:'types'){
+     def res = post(path:'types'){
       type ContentType.JSON 
       json t
      }
+     res.json
    } catch (HTTPClientException e) {
      throw new RuntimeException(new String(e.response.data))
    }
@@ -22,7 +23,7 @@ class Types {
  }
 
  def get(id) {
-   get(path:"types/${id}") 
+   get(path:"types/${id}").json
  }
 
 }

@@ -13,7 +13,7 @@ class TypeSpec  extends Specification {
      when: 
 	 type.create(new Fixtures().redisType)
      then:
-       type.get('redis').json.type == 'redis'
+       type.get('redis').type == 'redis'
      cleanup:
        type.delete('redis')
   }
@@ -23,6 +23,6 @@ class TypeSpec  extends Specification {
 	type.create(new Fixtures().redisType)
 	type.delete('redis')
     then:
-	type.get('redis').json == [:]
+	type.get('redis') == [:]
   }
 }

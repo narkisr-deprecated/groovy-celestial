@@ -8,21 +8,22 @@ class Systems {
 
  def create(system) {
    try{
-     post(path:'systems'){
+     def res = post(path:'systems'){
       type ContentType.JSON 
       json system
      }
+     res.json
    } catch (HTTPClientException e) {
      throw new RuntimeException(new String(e.response.data))
    }
  }
 
  def delete(id) {
-  delete(path:"systems/${id}")
+   delete(path:"systems/${id}")
  }
 
  def get(id) {
-   get(path:"systems/${id}") 
+   get(path:"systems/${id}").json
  }
 
 }
