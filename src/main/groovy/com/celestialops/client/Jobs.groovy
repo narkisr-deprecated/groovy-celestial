@@ -39,15 +39,18 @@ class Jobs {
    get(path:"jobs/${queue}/${jid}/status").json
  }
  
- def waitUntil(tid, expected, timeout) {
+ def waitFor(tid, timeout) {
     int count = (timeout/1000)
     while (count > 0) { 
-       if(containsTid(listJobs(), tid, expected)){
+       def jobs = listJobs()
+       if(containsTid(jobs, tid, State.Succesful)){
         return true
-       }
+       } else if(containsTid(jobs, tid, State.Erroneous)) {
+        return false
+	 }
        sleep(1000) 
        count -- 
     } 
-   throw new RuntimeException("Failed to wait for job with transaction id ${tid} to finish ${expected.result}")
+   throw new RuntimeException("Failed to wait for job with transaction id ${tid} to finish")
  }
 }

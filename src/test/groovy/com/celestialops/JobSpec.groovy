@@ -18,7 +18,7 @@ class JobsSpec extends Specification {
       def running = job.listJobs().jobs.find{ it.jid == jid } 
     then: 
       running != null
-      job.waitUntil(running.tid, Jobs.State.Erroneous, 60 * 1000) == true
+      job.waitFor(running.tid, 60 * 1000) == false
     cleanup: 
       system.delete(id)
 	type.delete('redis')
