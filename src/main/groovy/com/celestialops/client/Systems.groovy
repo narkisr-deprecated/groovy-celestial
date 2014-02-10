@@ -14,7 +14,11 @@ class Systems {
      }
      res.json
    } catch (HTTPClientException e) {
-     throw new RuntimeException(new String(e.response.data))
+     if(e.response!=null){
+       throw new RuntimeException(new String(e.response.data))
+     } else {
+     	 throw e
+     }
    }
  }
 
