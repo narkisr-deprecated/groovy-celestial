@@ -5,17 +5,6 @@ import wslite.rest.ContentType
 @Mixin(Serviceable) 
 class Jobs {
 
- def containsTid = { jobs,tid,exp -> jobs."${exp.result}".any{it.tid == tid} }
-
- enum State {
-  Succesful('succesful'),
-  Erroneous('erroneous')
-  def result 
-  def State(result){
-   this.result = result
-  }
- }
- 
  def stage(id) {
    post(path:"jobs/stage/${id}",{}).json
  }
@@ -31,8 +20,12 @@ class Jobs {
     }).json
  }
 
- def listJobs() {
-   get(path:'jobs').json
+ def runningJobs() {
+   get(path:'jobs/running').json
+ }
+
+ def doneJob(tid) {
+   get(path:"jobs/done/${tid}").json
  }
 
  def status(jid, queue) {
@@ -42,11 +35,14 @@ class Jobs {
  def waitFor(tid, timeout) {
     int count = (timeout/1000)
     while (count > 0) { 
-       def jobs = listJobs()
-       if(containsTid(jobs, tid, State.Succesful)){
-        return true
-       } else if(containsTid(jobs, tid, State.Erroneous)) {
-        return false
+       def job = doneJob(tid)
+       println job
+       if(job!=[:]) {
+          if(job.status=='success') {
+            return true          
+	    } else if(job.status=='error') {
+		return false
+	    }
 	 }
        sleep(1000) 
        count -- 
