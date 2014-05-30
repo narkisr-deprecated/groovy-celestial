@@ -36,7 +36,6 @@ class Jobs {
     int count = (timeout/1000)
     while (count > 0) { 
        def job = doneJob(tid)
-       println job
        if(job!=[:]) {
           if(job.status=='success') {
             return true          
