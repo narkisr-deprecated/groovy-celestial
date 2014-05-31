@@ -2,6 +2,7 @@ package com.celestialops.client;
  
 import wslite.http.HTTPClientException
 import wslite.rest.ContentType
+import groovy.json.*
 
 @Mixin(Serviceable) 
 class Systems {
@@ -28,6 +29,11 @@ class Systems {
 
  def get(id) {
    get(path:"systems/${id}").json
+ }
+
+ def query(start, offset, query) {
+   def encoded = new JsonBuilder(query).toString().bytes.encodeBase64().toString()
+   get(path:'systems/query', query: ['page':start, 'offset':offset, 'query':encoded]).json
  }
 
 }
