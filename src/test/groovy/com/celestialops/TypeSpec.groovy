@@ -11,6 +11,7 @@ class TypeSpec  extends Specification {
 
   def 'Type creation'(){
      when: 
+       type.delete('redis')
 	 type.create(new Fixtures().redisType)
      then:
        type.get('redis').type == 'redis'

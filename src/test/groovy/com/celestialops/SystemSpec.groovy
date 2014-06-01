@@ -8,16 +8,11 @@ class SystemSpec extends Specification {
 
   def system = new Systems()
   def type = new Types()
-
-  def lazyTypeCreate = {
-    if(type.get('redis') == [:]){
-	type.create(new Fixtures().redisType)
-    }
-  }
+  def fixtures = new Fixtures()
 
   def 'System creation'(){
     when: 
-      lazyTypeCreate() 
+      fixtures.lazyTypeCreate()
       def id = system.create(new Fixtures().dockerSystem).id 
     then:
       system.get(id).owner == 'admin'
@@ -27,7 +22,7 @@ class SystemSpec extends Specification {
 
   def 'System deletion'(){
     when: 
-      lazyTypeCreate() 
+      fixtures.lazyTypeCreate() 
       def id = system.create(new Fixtures().dockerSystem).id 
       system.delete(id)
     then:
@@ -36,7 +31,7 @@ class SystemSpec extends Specification {
 
   def 'System query'(){
     when: 
-      lazyTypeCreate() 
+      fixtures.lazyTypeCreate() 
       def docker = new Fixtures().dockerSystem
       docker.machine.hostname = 'testme'
       def id = system.create(docker).id 
