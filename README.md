@@ -46,7 +46,7 @@ Low level API:
  // basicly what flows use
  def id = system.create(json).id 
  def jid = job.stage(id).job
- def running = job.listJobs().jobs.find{ it.jid == jid } 
+ def running = job.runningJobs().jobs.find{ it.jid == jid } 
  assert job.waitUntil(running.tid, Jobs.State.Succesful, timeout) == true
 ```
 
