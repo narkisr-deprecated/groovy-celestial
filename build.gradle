@@ -2,11 +2,15 @@ apply plugin: 'groovy'
 apply plugin: 'bintray'
 apply plugin: 'maven'
 
-version = '0.1.0'
+version = '0.1.1'
 description = 'Celestial Groovy client'
 group = 'com.celestialops'
 
 compileJava {
+  targetCompatibility = '1.6'
+}
+
+compileGroovy{
   targetCompatibility = '1.6'
 }
 
