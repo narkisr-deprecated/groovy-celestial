@@ -13,7 +13,7 @@ repositories {
 
 
 dependencies {
-  compile 'com.celestialops:groovy-celestial:0.0.2'
+  compile 'com.celestialops:groovy-celestial:0.1.2'
 }
 ```
 
